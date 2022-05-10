@@ -43,7 +43,6 @@ public class StartingPage extends javax.swing.JFrame {
         PnTitle.setBackground(new java.awt.Color(34, 172, 158));
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle.setForeground(new java.awt.Color(0, 0, 0));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/soccermanagement/titleicon.png"))); // NOI18N
         lblTitle.setText("SOCCER TOURNAMENTS MANAGER");
@@ -55,7 +54,7 @@ public class StartingPage extends javax.swing.JFrame {
             .addGroup(PnTitleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         PnTitleLayout.setVerticalGroup(
             PnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,6 +76,9 @@ public class StartingPage extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(LstTournaments);
 
+        btnCreate.setBackground(new java.awt.Color(34, 172, 158));
+        btnCreate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCreate.setForeground(new java.awt.Color(255, 255, 255));
         btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagestore/Create.png"))); // NOI18N
         btnCreate.setText("Create Tournament");
         btnCreate.setToolTipText("");
@@ -105,7 +107,7 @@ public class StartingPage extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCreate)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -121,7 +123,7 @@ public class StartingPage extends javax.swing.JFrame {
         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
             evt.consume();
         //handle double click event.
-
+            this.setVisible(false);
         }
         
     }//GEN-LAST:event_LstTournamentsMouseClicked
