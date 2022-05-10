@@ -477,14 +477,15 @@ public class HomePage extends javax.swing.JFrame {
         jPanel.setBackground(new Color(34,172,158));
     }
     
-    ArrayList<Club> getListClub(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Connection con = DriverManager.getConnection("")
-    }
+//    ArrayList<Club> getListClub(){
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        //Connection con = DriverManager.getConnection("")
+//    }
     
     void removePannel(){
         subPannel.removeAll();
