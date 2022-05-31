@@ -5,7 +5,19 @@
 package SoccerManagermentUIdelegate;
 
 import java.awt.SystemColor;
-
+import java.sql.*;
+import SoccerManagementModel.*;
+import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 /**
  *
  * @author Administrator
@@ -20,6 +32,9 @@ public class CreateTour extends javax.swing.JFrame {
         setVisible(true);
         initComponents();
         System.out.println(tourid);
+        Date date=new Date();
+        TimeEnd.setDate(date);
+        TimeStart.setDate(date);
     }
 
     /**
@@ -39,7 +54,6 @@ public class CreateTour extends javax.swing.JFrame {
         txtSL = new javax.swing.JTextField();
         TimeStart = new com.toedter.calendar.JDateChooser();
         TimeEnd = new com.toedter.calendar.JDateChooser();
-        cbGroups = new javax.swing.JComboBox<>();
         cbRoundKicks = new javax.swing.JComboBox<>();
         lblLOGO = new javax.swing.JLabel();
         btnImage = new javax.swing.JButton();
@@ -68,6 +82,11 @@ public class CreateTour extends javax.swing.JFrame {
         txtStadium.setBorder(javax.swing.BorderFactory.createTitledBorder("Stadium"));
 
         txtSL.setBorder(javax.swing.BorderFactory.createTitledBorder("Number Of Teams [6-104]"));
+        txtSL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSLActionPerformed(evt);
+            }
+        });
 
         TimeStart.setBackground(new java.awt.Color(255, 255, 255));
         TimeStart.setBorder(javax.swing.BorderFactory.createTitledBorder("Time Start"));
@@ -79,18 +98,24 @@ public class CreateTour extends javax.swing.JFrame {
         TimeEnd.setForeground(new java.awt.Color(255, 255, 255));
         TimeEnd.setDateFormatString("yyyy-MM-dd");
 
-        cbGroups.setForeground(new java.awt.Color(255, 255, 255));
-        cbGroups.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbGroups.setBorder(javax.swing.BorderFactory.createTitledBorder("Number Of Groups"));
-
         cbRoundKicks.setForeground(new java.awt.Color(255, 255, 255));
         cbRoundKicks.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
         cbRoundKicks.setBorder(javax.swing.BorderFactory.createTitledBorder("Number Of Round Kicks"));
+        cbRoundKicks.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbRoundKicksItemStateChanged(evt);
+            }
+        });
 
         lblLOGO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagestore/football-player.png"))); // NOI18N
 
         btnImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagestore/icon_open.png"))); // NOI18N
         btnImage.setText("Insert Image");
+        btnImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImageActionPerformed(evt);
+            }
+        });
 
         lblNumMatch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNumMatch.setForeground(new java.awt.Color(0, 102, 102));
@@ -115,26 +140,23 @@ public class CreateTour extends javax.swing.JFrame {
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMainLayout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbRoundKicks, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panelMainLayout.createSequentialGroup()
-                                    .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtTourName, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-                                        .addComponent(txtOrganizer, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtStadium, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblLOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addComponent(btnImage, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
-                                .addComponent(lblNumMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbRoundKicks, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelMainLayout.createSequentialGroup()
                                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelMainLayout.createSequentialGroup()
-                                        .addComponent(TimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(TimeEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtSL, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(cbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtTourName, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                                    .addComponent(txtOrganizer, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtStadium, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblLOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(btnImage, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
+                            .addComponent(lblNumMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelMainLayout.createSequentialGroup()
+                                .addComponent(TimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TimeEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSL, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelMainLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -142,7 +164,7 @@ public class CreateTour extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMainLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnCreat, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108))
+                .addGap(109, 109, 109))
         );
         panelMainLayout.setVerticalGroup(
             panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,15 +188,13 @@ public class CreateTour extends javax.swing.JFrame {
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TimeEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbGroups, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(cbRoundKicks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblNumMatch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnCreat)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,17 +205,38 @@ public class CreateTour extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnCreatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatActionPerformed
         // TODO add your handling code here:
+        Connection con=new ConnectDB().createConn();
+        String sql= "insert into tournament(tnmname,sl,organizational,stadium,timestart,timeend,logo,roundkick,matchnum) values(?,?,?,?,?,?,?,?,?)";
+        try{
+            PreparedStatement pre=con.prepareStatement(sql);
+            pre.setString(1, txtTourName.getText());
+            pre.setString(2, txtSL.getText());
+            pre.setString(3, txtOrganizer.getText());
+            pre.setString(4, txtStadium.getText());
+            DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+            pre.setString(5, df.format(TimeStart.getDate()));
+            pre.setString(6, df.format(TimeEnd.getDate()));
+            pre.setString(7, path);
+            pre.setString(8,cbRoundKicks.getItemAt(cbRoundKicks.getSelectedIndex()));
+            pre.setInt(9,sotran);
+            pre.executeUpdate();
+            
+            con.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            System.out.println("Lỗi create tournament");
+        }
+        
         this.setVisible(false);
         new StartingPage().setVisible(true);
     }//GEN-LAST:event_btnCreatActionPerformed
@@ -206,6 +247,100 @@ public class CreateTour extends javax.swing.JFrame {
         new StartingPage().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
+    String path ="C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Soccer-Management\\src\\imageInsert\\football-player.png";
+    private void btnImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImageActionPerformed
+        // TODO add your handling code here:
+            JFileChooser fileChooser = new JFileChooser("C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Soccer-Management\\src\\imageInsert");
+            fileChooser.addChoosableFileFilter(new ImageFilter());
+            fileChooser.setAcceptAllFileFilterUsed(false);
+
+            int option = fileChooser.showOpenDialog(this);
+            if(option == JFileChooser.APPROVE_OPTION){
+               File file = fileChooser.getSelectedFile();
+               path = file.getAbsolutePath();
+               ImageIcon imgThisImg = new ImageIcon(path);
+               lblLOGO.setIcon(imgThisImg);
+            }
+            
+    }//GEN-LAST:event_btnImageActionPerformed
+    int sotran;
+    private void cbRoundKicksItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbRoundKicksItemStateChanged
+        // TODO add your handling code here:
+         LoadNumMatch();
+        }
+
+    private void LoadNumMatch() {
+        int rk= Integer.parseInt(cbRoundKicks.getItemAt(cbRoundKicks.getSelectedIndex()));
+        int number=Integer.parseInt(txtSL.getText());
+        if(number%4==0){
+            sotran=12*(number/4)*rk;
+            lblNumMatch.setText("Number matchs of Tournament:  "+sotran);
+        }
+        else {
+            sotran=12*(number/4)*rk+6*rk;
+            lblNumMatch.setText("Number matchs of Tournament:  "+sotran);    }
+        
+    }//GEN-LAST:event_cbRoundKicksItemStateChanged
+
+    private void txtSLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLActionPerformed
+        // TODO add your handling code here:
+        int num;
+        if(txtSL.getText().equals("0")==true)
+            num=0;
+        else
+            num= Integer.parseInt(txtSL.getText());
+        if(num%4==0||num%4==3)
+            LoadNumMatch();
+        else
+            JOptionPane.showMessageDialog(null,"Số đội phải chia hết cho 4 hoặc chia 4 dư 3","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+        
+    }//GEN-LAST:event_txtSLActionPerformed
+                class ImageFilter extends FileFilter {
+           public final static String JPEG = "jpeg";
+           public final static String JPG = "jpg";
+           public final static String GIF = "gif";
+           public final static String TIFF = "tiff";
+           public final static String TIF = "tif";
+           public final static String PNG = "png";
+
+           @Override
+           public boolean accept(File f) {
+              if (f.isDirectory()) {
+                 return true;
+              }
+
+              String extension = getExtension(f);
+              if (extension != null) {
+                 if (extension.equals(TIFF) ||
+                    extension.equals(TIF) ||
+                    extension.equals(GIF) ||
+                    extension.equals(JPEG) ||
+                    extension.equals(JPG) ||
+                    extension.equals(PNG)) {
+                    return true;
+                 } else {
+                    return false;
+                 }
+              }
+              return false;
+           }
+
+           @Override
+           public String getDescription() {
+              return "Image Only";
+           }
+
+           String getExtension(File f) {
+              String ext = null;
+              String s = f.getName();
+              int i = s.lastIndexOf('.');
+
+              if (i > 0 &&  i < s.length() - 1) {
+                 ext = s.substring(i+1).toLowerCase();
+              }
+              return ext;
+           } 
+        }
     /**
      * @param args the command line arguments
      */
@@ -247,7 +382,6 @@ public class CreateTour extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreat;
     private javax.swing.JButton btnImage;
-    private javax.swing.JComboBox<String> cbGroups;
     private javax.swing.JComboBox<String> cbRoundKicks;
     private javax.swing.JLabel lblLOGO;
     private javax.swing.JLabel lblNumMatch;
