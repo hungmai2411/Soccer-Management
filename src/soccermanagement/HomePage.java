@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import soccermanagement.model.Club;
+import SoccerManagementModel.Club;
 
 /**
  *
@@ -19,6 +19,7 @@ import soccermanagement.model.Club;
 public class HomePage extends javax.swing.JFrame {
     public HomePage() {
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -67,12 +68,10 @@ public class HomePage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1045, 650));
 
-        bg.setBounds(new java.awt.Rectangle(0, 0, 1045, 650));
         bg.setPreferredSize(new java.awt.Dimension(1045, 650));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidePanel.setBackground(new java.awt.Color(34, 172, 158));
-        sidePanel.setBounds(new java.awt.Rectangle(0, 0, 195, 650));
         sidePanel.setMaximumSize(new java.awt.Dimension(195, 650));
         sidePanel.setMinimumSize(new java.awt.Dimension(195, 650));
         sidePanel.setPreferredSize(new java.awt.Dimension(195, 650));
@@ -158,7 +157,6 @@ public class HomePage extends javax.swing.JFrame {
         bg.add(sidePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 195, 650));
 
         subPannel.setBackground(new java.awt.Color(255, 51, 51));
-        subPannel.setBounds(new java.awt.Rectangle(195, 0, 850, 650));
         subPannel.setMaximumSize(new java.awt.Dimension(850, 650));
         subPannel.setPreferredSize(new java.awt.Dimension(850, 650));
         subPannel.setLayout(new java.awt.CardLayout());
@@ -191,7 +189,7 @@ public class HomePage extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -270,17 +268,18 @@ public class HomePage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtNameCaptain, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNameClub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNameClub, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel14)
+                        .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -297,7 +296,6 @@ public class HomePage extends javax.swing.JFrame {
         subPannel.add(pannelClub, "card2");
 
         pannelMatchSchedule.setBackground(new java.awt.Color(255, 255, 102));
-        pannelMatchSchedule.setBounds(new java.awt.Rectangle(0, 0, 850, 650));
         pannelMatchSchedule.setMaximumSize(new java.awt.Dimension(850, 650));
 
         jLabel8.setText("This is pannel match schedule");
@@ -322,7 +320,6 @@ public class HomePage extends javax.swing.JFrame {
         subPannel.add(pannelMatchSchedule, "card3");
 
         pannelPlayer.setBackground(new java.awt.Color(255, 255, 102));
-        pannelPlayer.setBounds(new java.awt.Rectangle(195, 0, 850, 650));
         pannelPlayer.setPreferredSize(new java.awt.Dimension(850, 650));
 
         jLabel9.setText("This is pannel Player");
@@ -347,7 +344,6 @@ public class HomePage extends javax.swing.JFrame {
         subPannel.add(pannelPlayer, "card4");
 
         pannelResult.setBackground(new java.awt.Color(255, 255, 102));
-        pannelResult.setBounds(new java.awt.Rectangle(195, 0, 850, 650));
 
         jLabel10.setText("This is pannel Result");
 
@@ -371,7 +367,6 @@ public class HomePage extends javax.swing.JFrame {
         subPannel.add(pannelResult, "card5");
 
         pannelRanking.setBackground(new java.awt.Color(255, 255, 102));
-        pannelRanking.setBounds(new java.awt.Rectangle(195, 0, 850, 650));
 
         jLabel11.setText("This is pannel Ranking");
 
