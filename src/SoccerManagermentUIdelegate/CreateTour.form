@@ -56,7 +56,7 @@
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="txtTourName" pref="262" max="32767" attributes="0"/>
                                       <Component id="txtOrganizer" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtStadium" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtLocation" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -70,7 +70,7 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="TimeEnd" min="-2" pref="180" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="txtSL" alignment="0" min="-2" pref="388" max="-2" attributes="0"/>
+                              <Component id="txtNumTeam" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -102,13 +102,13 @@
                       <Group type="102" attributes="0">
                           <Component id="txtOrganizer" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Component id="txtStadium" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtLocation" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="lblLOGO" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtSL" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <Component id="txtNumTeam" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="TimeStart" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TimeEnd" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -160,26 +160,14 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtStadium">
+        <Component class="javax.swing.JTextField" name="txtLocation">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Stadium"/>
+                <TitledBorder title="Location"/>
               </Border>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtSL">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Number Of Teams [6-104]"/>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSLActionPerformed"/>
-          </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="TimeStart">
           <Properties>
@@ -284,6 +272,18 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreatActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtNumTeam">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Number of Teams"/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNumTeamActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -4,34 +4,31 @@
  */
 package SoccerManagermentUIdelegate;
 
-import java.awt.SystemColor;
+
 import java.sql.*;
 import SoccerManagementModel.*;
 import java.io.File;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
+import SoccerManagementDTO.*;
+import java.awt.Image;
+import java.util.ArrayList;
+
 /**
  *
  * @author Administrator
  */
 public class CreateTour extends javax.swing.JFrame {
-    static int tourid;
     /**
      * Creates new form CreateTour
      */
-    public CreateTour(int tourid) {
+    public CreateTour() {
         setTitle("Create Tournament");
         setVisible(true);
         initComponents();
-        System.out.println(tourid);
         Date date=new Date();
         TimeEnd.setDate(date);
         TimeStart.setDate(date);
@@ -50,8 +47,7 @@ public class CreateTour extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         txtOrganizer = new javax.swing.JTextField();
         txtTourName = new javax.swing.JTextField();
-        txtStadium = new javax.swing.JTextField();
-        txtSL = new javax.swing.JTextField();
+        txtLocation = new javax.swing.JTextField();
         TimeStart = new com.toedter.calendar.JDateChooser();
         TimeEnd = new com.toedter.calendar.JDateChooser();
         cbRoundKicks = new javax.swing.JComboBox<>();
@@ -59,6 +55,7 @@ public class CreateTour extends javax.swing.JFrame {
         btnImage = new javax.swing.JButton();
         lblNumMatch = new javax.swing.JLabel();
         btnCreat = new javax.swing.JButton();
+        txtNumTeam = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -79,14 +76,7 @@ public class CreateTour extends javax.swing.JFrame {
 
         txtTourName.setBorder(javax.swing.BorderFactory.createTitledBorder("Tournament Name"));
 
-        txtStadium.setBorder(javax.swing.BorderFactory.createTitledBorder("Stadium"));
-
-        txtSL.setBorder(javax.swing.BorderFactory.createTitledBorder("Number Of Teams [6-104]"));
-        txtSL.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSLActionPerformed(evt);
-            }
-        });
+        txtLocation.setBorder(javax.swing.BorderFactory.createTitledBorder("Location"));
 
         TimeStart.setBackground(new java.awt.Color(255, 255, 255));
         TimeStart.setBorder(javax.swing.BorderFactory.createTitledBorder("Time Start"));
@@ -132,6 +122,13 @@ public class CreateTour extends javax.swing.JFrame {
             }
         });
 
+        txtNumTeam.setBorder(javax.swing.BorderFactory.createTitledBorder("Number of Teams"));
+        txtNumTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumTeamActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelMainLayout = new javax.swing.GroupLayout(panelMain);
         panelMain.setLayout(panelMainLayout);
         panelMainLayout.setHorizontalGroup(
@@ -146,7 +143,7 @@ public class CreateTour extends javax.swing.JFrame {
                                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtTourName, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                                     .addComponent(txtOrganizer, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtStadium, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(txtLocation, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblLOGO, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -156,7 +153,7 @@ public class CreateTour extends javax.swing.JFrame {
                                 .addComponent(TimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(TimeEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtSL, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtNumTeam)))
                     .addGroup(panelMainLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -180,11 +177,11 @@ public class CreateTour extends javax.swing.JFrame {
                     .addGroup(panelMainLayout.createSequentialGroup()
                         .addComponent(txtOrganizer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
-                        .addComponent(txtStadium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblLOGO))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
+                .addComponent(txtNumTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TimeStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TimeEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,13 +212,27 @@ public class CreateTour extends javax.swing.JFrame {
     private void btnCreatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreatActionPerformed
         // TODO add your handling code here:
         Connection con=new ConnectDB().createConn();
-        String sql= "insert into tournament(tnmname,sl,organizational,stadium,timestart,timeend,logo,roundkick,matchnum) values(?,?,?,?,?,?,?,?,?)";
+        int NewID=0,num=Integer.parseInt(txtNumTeam.getText()),sodoi=0;
+        String sqlSelectedTourID="SELECT MAX(idtnm) FROM tournament";
+        
+        String sql= "insert into tournament(tnmname,sl,organizational,location,timestart,timeend,logo,roundkick,matchnum) values(?,?,?,?,?,?,?,?,?)";
         try{
-            PreparedStatement pre=con.prepareStatement(sql);
+            //get tourID
+            PreparedStatement pre= con.prepareStatement(sqlSelectedTourID,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs= pre.executeQuery();
+            if(rs.next()==true){
+                rs.absolute(1);
+                NewID=rs.getInt("MAX(idtnm)")+1;
+            }
+                
+            System.out.println(NewID);
+            //create tour
+            pre=con.prepareStatement(sql);
             pre.setString(1, txtTourName.getText());
-            pre.setString(2, txtSL.getText());
+            pre.setString(2, txtNumTeam.getText());
             pre.setString(3, txtOrganizer.getText());
-            pre.setString(4, txtStadium.getText());
+            pre.setString(4, txtLocation.getText());
             DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
             pre.setString(5, df.format(TimeStart.getDate()));
             pre.setString(6, df.format(TimeEnd.getDate()));
@@ -230,7 +241,130 @@ public class CreateTour extends javax.swing.JFrame {
             pre.setInt(9,sotran);
             pre.executeUpdate();
             
+            //create default club
+            String sqlCreateDefaultClub="insert into club(clbname,IDTNM) values(null,"+String.valueOf(NewID)+")";
+            for(int i=0; i<num;i++){
+                Statement stat= con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
+                stat.executeUpdate(sqlCreateDefaultClub);
+            }
+            
+
+            //create auto macth shedule
+            String sqlmatch="select idclb from club where idtnm=?";
+            pre=con.prepareStatement(sqlmatch,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                        ResultSet.CONCUR_UPDATABLE);
+            pre.setInt(1,NewID);
+            rs=pre.executeQuery();
+            if(num%2==0){
+                sodoi=num;
+            }
+            else
+                sodoi=num+1;
+            int []arr= new int[sodoi];   
+            int i=0;
+            while(rs.next()){
+                arr[i]=rs.getInt("idclb");
+                i++;
+            }
+            if(sodoi%2!=0)
+                arr[sodoi-1]=0;
+            
+            MatchScheduleAlgorithm match= new MatchScheduleAlgorithm();
+            match.algorithm(arr);
+            ArrayList<Integer> team1= new ArrayList<>();
+            ArrayList<Integer> team2= new ArrayList<>();
+            team1=match.arr1;
+            team2=match.arr2;
+            int round=Integer.parseInt(cbRoundKicks.getItemAt(cbRoundKicks.getSelectedIndex()));
+            System.out.println(round);
+            String sqlCreateMatch="insert into match1(clb1,clb2,idtnm) values(?,?,"+String.valueOf(NewID)+")";
+                if(round==2){
+                    if(num%2==0){
+                        for(int j=0;j<sotran/2;j++){
+
+                            if(team1.get(j)==0||team2.get(j)==0){
+                                continue;
+                            }
+                            pre=con.prepareStatement(sqlCreateMatch,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                                    ResultSet.CONCUR_UPDATABLE);                
+                            pre.setString(1,team1.get(j).toString());
+                            pre.setString(2,team2.get(j).toString());
+                            pre.executeUpdate();
+                            }
+                        for(int j=0;j<sotran/2;j++){
+
+                            if(team1.get(j)==0||team2.get(j)==0){
+                                continue;
+                            }
+                            pre=con.prepareStatement(sqlCreateMatch,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                                    ResultSet.CONCUR_UPDATABLE);                
+                            pre.setString(1,team2.get(j).toString());
+                            pre.setString(2,team1.get(j).toString());
+                            pre.executeUpdate();
+                        }
+                    }
+                    else{
+                        for(int j=0;j<(sotran/2)+num;j++){
+
+                            if(team1.get(j)==0||team2.get(j)==0){
+                                continue;
+                            }
+                            pre=con.prepareStatement(sqlCreateMatch,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                                    ResultSet.CONCUR_UPDATABLE);                
+                            pre.setString(1,team1.get(j).toString());
+                            pre.setString(2,team2.get(j).toString());
+                            pre.executeUpdate();
+                            }
+                        for(int j=0;j<(sotran/2)+num;j++){
+
+                            if(team1.get(j)==0||team2.get(j)==0){
+                                continue;
+                            }
+                            pre=con.prepareStatement(sqlCreateMatch,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                                    ResultSet.CONCUR_UPDATABLE);                
+                            pre.setString(1,team2.get(j).toString());
+                            pre.setString(2,team1.get(j).toString());
+                            pre.executeUpdate();
+                        }
+                    }
+                    
+                }
+                else{
+                    if(num%2==0){
+                        for(int j=0;j<sotran;j++){
+
+                        if(team1.get(j)==0||team2.get(j)==0){
+                            continue;
+                        }
+                        pre=con.prepareStatement(sqlCreateMatch,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                                ResultSet.CONCUR_UPDATABLE);                
+                        pre.setString(1,team1.get(j).toString());
+                        pre.setString(2,team2.get(j).toString());
+                        pre.executeUpdate();
+                        }
+                    }
+                    else{
+                        for(int j=0;j<sotran+num;j++){
+
+                        if(team1.get(j)==0||team2.get(j)==0){
+                            continue;
+                        }
+                        pre=con.prepareStatement(sqlCreateMatch,ResultSet.TYPE_SCROLL_SENSITIVE, 
+                                ResultSet.CONCUR_UPDATABLE);                
+                        pre.setString(1,team1.get(j).toString());
+                        pre.setString(2,team2.get(j).toString());
+                        pre.executeUpdate();
+                        }
+                    }
+                }
+                    
+
+            
+            
+            
             con.close();
+            
         }
         catch(SQLException e){
             e.printStackTrace();
@@ -247,10 +381,10 @@ public class CreateTour extends javax.swing.JFrame {
         new StartingPage().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    String path ="C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Soccer-Management\\src\\imageInsert\\football-player.png";
+    String path ="imagestore\\football-player.png";
     private void btnImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImageActionPerformed
         // TODO add your handling code here:
-            JFileChooser fileChooser = new JFileChooser("C:\\Users\\Administrator\\Documents\\NetBeansProjects\\Soccer-Management\\src\\imageInsert");
+            JFileChooser fileChooser = new JFileChooser("imagestore");
             fileChooser.addChoosableFileFilter(new ImageFilter());
             fileChooser.setAcceptAllFileFilterUsed(false);
 
@@ -258,7 +392,7 @@ public class CreateTour extends javax.swing.JFrame {
             if(option == JFileChooser.APPROVE_OPTION){
                File file = fileChooser.getSelectedFile();
                path = file.getAbsolutePath();
-               ImageIcon imgThisImg = new ImageIcon(path);
+               ImageIcon imgThisImg = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH));
                lblLOGO.setIcon(imgThisImg);
             }
             
@@ -266,81 +400,21 @@ public class CreateTour extends javax.swing.JFrame {
     int sotran;
     private void cbRoundKicksItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbRoundKicksItemStateChanged
         // TODO add your handling code here:
-         LoadNumMatch();
-        }
-
-    private void LoadNumMatch() {
-        int rk= Integer.parseInt(cbRoundKicks.getItemAt(cbRoundKicks.getSelectedIndex()));
-        int number=Integer.parseInt(txtSL.getText());
-        if(number%4==0){
-            sotran=12*(number/4)*rk;
-            lblNumMatch.setText("Number matchs of Tournament:  "+sotran);
-        }
-        else {
-            sotran=12*(number/4)*rk+6*rk;
-            lblNumMatch.setText("Number matchs of Tournament:  "+sotran);    }
-        
+        LoadNumMatch();
     }//GEN-LAST:event_cbRoundKicksItemStateChanged
 
-    private void txtSLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSLActionPerformed
+    private void txtNumTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumTeamActionPerformed
         // TODO add your handling code here:
-        int num;
-        if(txtSL.getText().equals("0")==true)
-            num=0;
-        else
-            num= Integer.parseInt(txtSL.getText());
-        if(num%4==0||num%4==3)
-            LoadNumMatch();
-        else
-            JOptionPane.showMessageDialog(null,"Số đội phải chia hết cho 4 hoặc chia 4 dư 3","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-        
-    }//GEN-LAST:event_txtSLActionPerformed
-                class ImageFilter extends FileFilter {
-           public final static String JPEG = "jpeg";
-           public final static String JPG = "jpg";
-           public final static String GIF = "gif";
-           public final static String TIFF = "tiff";
-           public final static String TIF = "tif";
-           public final static String PNG = "png";
+        LoadNumMatch();
+    }//GEN-LAST:event_txtNumTeamActionPerformed
 
-           @Override
-           public boolean accept(File f) {
-              if (f.isDirectory()) {
-                 return true;
-              }
-
-              String extension = getExtension(f);
-              if (extension != null) {
-                 if (extension.equals(TIFF) ||
-                    extension.equals(TIF) ||
-                    extension.equals(GIF) ||
-                    extension.equals(JPEG) ||
-                    extension.equals(JPG) ||
-                    extension.equals(PNG)) {
-                    return true;
-                 } else {
-                    return false;
-                 }
-              }
-              return false;
-           }
-
-           @Override
-           public String getDescription() {
-              return "Image Only";
-           }
-
-           String getExtension(File f) {
-              String ext = null;
-              String s = f.getName();
-              int i = s.lastIndexOf('.');
-
-              if (i > 0 &&  i < s.length() - 1) {
-                 ext = s.substring(i+1).toLowerCase();
-              }
-              return ext;
-           } 
-        }
+    private void LoadNumMatch() {
+        int rk=Integer.parseInt(cbRoundKicks.getItemAt(cbRoundKicks.getSelectedIndex()));
+        int number=Integer.parseInt(txtNumTeam.getText());
+        sotran=number*(number-1)/2*rk;
+        lblNumMatch.setText("Number matchs of Tournament:  "+sotran);
+    }
+  
     /**
      * @param args the command line arguments
      */
@@ -371,7 +445,7 @@ public class CreateTour extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateTour(tourid).setVisible(true);
+                new CreateTour().setVisible(true);
             }
         });
     }
@@ -386,9 +460,9 @@ public class CreateTour extends javax.swing.JFrame {
     private javax.swing.JLabel lblLOGO;
     private javax.swing.JLabel lblNumMatch;
     private javax.swing.JPanel panelMain;
+    private javax.swing.JTextField txtLocation;
+    private javax.swing.JTextField txtNumTeam;
     private javax.swing.JTextField txtOrganizer;
-    private javax.swing.JTextField txtSL;
-    private javax.swing.JTextField txtStadium;
     private javax.swing.JTextField txtTourName;
     // End of variables declaration//GEN-END:variables
 }
