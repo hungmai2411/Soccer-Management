@@ -54,7 +54,7 @@ public final class StartingPage extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/soccermanagement/titleicon.png"))); // NOI18N
+        lblTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagestore/goal.png"))); // NOI18N
         lblTitle.setText("SOCCER TOURNAMENTS MANAGER");
 
         javax.swing.GroupLayout PnTitleLayout = new javax.swing.GroupLayout(PnTitle);
@@ -68,7 +68,7 @@ public final class StartingPage extends javax.swing.JFrame {
         );
         PnTitleLayout.setVerticalGroup(
             PnTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PnTitleLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnTitleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                 .addContainerGap())
@@ -141,14 +141,14 @@ public final class StartingPage extends javax.swing.JFrame {
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new CreateTour(tourid).setVisible(true);
+        new CreateTour().setVisible(true);
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void listTourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTourMouseClicked
         // TODO add your handling code here:
         tourid=listid.get(listTour.getSelectedIndex());
         this.setVisible(false);
-        new CreateTour(tourid);
+        new HomePage(tourid).setVisible(true);
     }//GEN-LAST:event_listTourMouseClicked
 
     /**

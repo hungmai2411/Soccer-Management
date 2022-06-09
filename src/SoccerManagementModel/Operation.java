@@ -4,6 +4,8 @@
  */
 package SoccerManagementModel;
 
+import SoccerManagementDTO.StartingItem;
+import java.awt.Image;
 import java.sql.*;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -29,7 +31,8 @@ public class Operation {
             
             while (rs.next()){
                 String itemImage = rs.getString("LOGO");
-                listModel.addElement(new StartingItem(rs.getString("TNMNAME"),new ImageIcon(itemImage),rs.getString("idtnm")));
+                listModel.addElement(new StartingItem(rs.getString("TNMNAME"),new ImageIcon(new ImageIcon(itemImage).getImage()
+                .getScaledInstance(128, 128, Image.SCALE_SMOOTH)),rs.getString("idtnm")));
             }
         }
         catch(Exception e){
